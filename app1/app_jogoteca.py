@@ -38,10 +38,9 @@ def criar():
 app.run(debug=True)
 
 
-                #Ajustar depois com calma 
+                #Ajustar depois com calma
                 # {% if jogos %}
                 #     <p>Temos {{ len(jogos) }} jogos no site</p>
                 # {% else %}
                 #     <p>Nenhum Jogo no Site</p>
                 # {% endif %}
-                # teste
