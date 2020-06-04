@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request , redirect, session, flash
 
 
 
 app = Flask(__name__)
+app.secret_key = 'alura'
 
 linkdeteste = 'https://www.google.com.br/'
 
@@ -15,8 +16,7 @@ class Jogo:
 jogo1 = Jogo('Super Mario', 'Ação', 'SNES')
 jogo2 = Jogo('Pokemon Gold', 'RPG', 'Game Boy')
 jogo3 = Jogo('CSGO', 'FPS', 'PC')
-jogo4 = Jogo('teste', 'rpg', 'ps4')
-lista = [jogo1,jogo2,jogo3, jogo4]
+lista = [jogo1,jogo2,jogo3]
 
 @app.route('/')
 def index():
@@ -33,7 +33,27 @@ def criar():
     console = request.form['console']
     jogo = Jogo(nome, categoria, console)
     lista.append(jogo)
-    return render_template('lista.html', titulo='jogos', jogos=lista)
+    return redirect('/')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/autenticar',methods=['POST',])
+def autenticar():
+    if 'mestra' == request.form['senha']:
+        session['usuario_logado'] = request.form['usuario']
+        flash(request.form['usuario']+'logou com sucesso')
+        return redirect('/')
+    else:
+        flash('Não logado tente novamente')
+        return redirect('/login')
+
+@app.route('/logout')
+def logout():
+    session['usuario_logado'] = None
+    flash('Nenhum Usuario Logado')
+    return redirect('/')
 
 app.run(debug=True)
 
