@@ -1,5 +1,10 @@
 from flask import Flask, render_template, request , redirect, session, flash, url_for
+# import pymysql
 
+# db = pymysql.connect(host='localhost',
+#                        user='igor',
+#                        password='123@123',
+#                        db='jogoteca')
 
 
 app = Flask(__name__)
