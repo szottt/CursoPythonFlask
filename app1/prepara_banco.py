@@ -1,8 +1,8 @@
 import pymysql
 
 conn = pymysql.connect(host='localhost',
-                       user='igor',
-                       password='12345')
+                       user='seu_user',
+                       password='seu_password')
 
 # Descomente se quiser desfazer o banco...
 # conn.cursor().execute("DROP DATABASE `jogoteca`;")
@@ -15,7 +15,7 @@ conn.cursor().execute('CREATE DATABASE IF NOT EXISTS jogoteca')
 conn.select_db('jogoteca')
 
 # Criando tabelas no banco
-cur = conn.cursor()
+cur = conn.cursor(buffered=True)
 
 cur.execute("CREATE TABLE `jogo` (`id` int NOT NULL AUTO_INCREMENT,`nome` varchar(50) NOT NULL,`categoria` varchar(40)  NOT NULL,`console` varchar(20) NOT NULL,PRIMARY KEY (`id`))")
 
@@ -28,7 +28,7 @@ cur.executemany(
       [
             ('luan', 'Luan Marques', 'flask'),
             ('nico', 'Nico', '7a1'),
-            ('igor', 'Igor Szot', '12345')
+            ('danilo', 'Danilo', 'vegas')
       ])
 
 cur.execute('select * from jogoteca.usuario')

@@ -2,8 +2,8 @@ from flask import Flask, render_template, request , redirect, session, flash, ur
 # import pymysql
 
 # db = pymysql.connect(host='localhost',
-#                        user='igor',
-#                        password='123@123',
+#                        user='seu_user',
+#                        password='seu_password',
 #                        db='jogoteca')
 
 
@@ -81,12 +81,3 @@ def logout():
     return redirect(url_for('index'))
 
 app.run(debug=True)
-
-
-                #Ajustar depois com calma
-                # {% if jogos %}
-                #     <p>Temos {{ len(jogos) }} jogos no site</p>
-                # {% else %}
-                #     <p>Nenhum Jogo no Site</p>
-                # {% endif %}
-
