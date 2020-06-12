@@ -12,6 +12,7 @@ app.secret_key = 'alura'
 
 linkdeteste = 'https://www.google.com.br/'
 
+
 class Jogo:
     def __init__(self, nome, categoria, console):
         self.nome = nome
