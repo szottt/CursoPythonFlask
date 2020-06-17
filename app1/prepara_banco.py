@@ -1,8 +1,13 @@
 import pymysql
 
 conn = pymysql.connect(host='localhost',
+<<<<<<< Updated upstream
                        user='igor',
                        password='12345')
+=======
+                       user='root',
+                       password='todobancogosta@zika1391')
+>>>>>>> Stashed changes
 
 # Descomente se quiser desfazer o banco...
 # conn.cursor().execute("DROP DATABASE `jogoteca`;")
@@ -26,8 +31,11 @@ cur.execute("CREATE TABLE `usuario` (`id` varchar(8) NOT NULL,`nome` varchar(20)
 cur.executemany(
       'INSERT INTO jogoteca.usuario (id, nome, senha) VALUES (%s, %s, %s)',
       [
+<<<<<<< Updated upstream
             ('luan', 'Luan Marques', 'flask'),
             ('nico', 'Nico', '7a1'),
+=======
+>>>>>>> Stashed changes
             ('igor', 'Igor Szot', '12345')
       ])
 
@@ -45,6 +53,7 @@ cur.executemany(
             ('Rayman Legends', 'Indie', 'PS4'),
             ('Super Mario RPG', 'RPG', 'SNES'),
             ('Super Mario Kart', 'Corrida', 'SNES'),
+            ('Counter Strike Global Offensive', 'FPS', 'PC'),
             ('Fire Emblem Echoes', 'Estratégia', '3DS'),
       ])
 

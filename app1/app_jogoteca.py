@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request , redirect, session, flash, url_for
+<<<<<<< Updated upstream
 # import pymysql
 
 # db = pymysql.connect(host='localhost',
@@ -6,10 +7,16 @@ from flask import Flask, render_template, request , redirect, session, flash, ur
 #                        password='123@123',
 #                        db='jogoteca')
 
+=======
+from dao import JogoDao,UsuarioDao
+from models import Jogo, Usuario
+import pymysql
+>>>>>>> Stashed changes
 
 app = Flask(__name__)
 app.secret_key = 'alura'
 
+<<<<<<< Updated upstream
 linkdeteste = 'https://www.google.com.br/'
 
 class Jogo:
@@ -17,28 +24,29 @@ class Jogo:
         self.nome = nome
         self.categoria = categoria
         self.console = console
+=======
+MYSQL_HOST      = "localhost"
+MYSQL_USER      = "root"
+MYSQL_PASSWORD  = "todobancogosta@zika1391"
+MYSQL_DB        = "jogoteca"
+MYSQL_PORT      = "3306"
+>>>>>>> Stashed changes
 
-class Usuario:
-    def __init__(self, id, nome, senha):
-        self.id = id
-        self.nome = nome
-        self.senha = senha
+db = pymysql.connect(host=MYSQL_HOST,
+                       user=MYSQL_USER,
+                       password=MYSQL_PASSWORD,
+                       db=MYSQL_DB)
 
-usuario1 = Usuario('igor','Igor Szot','12345')
-usuario2 = Usuario('luan', 'Luan Marques', '54321')
-usuario3 = Usuario('Nico','Steppat','alemao')
+# db = pymysql.connect(app)
 
-usuarios = { usuario1.id: usuario1,
-             usuario2.id: usuario2,
-             usuario3.id: usuario3}
+jogo_dao = JogoDao(db)
+usuario_dao = UsuarioDao(db)
 
-jogo1 = Jogo('Super Mario', 'Ação', 'SNES')
-jogo2 = Jogo('Pokemon Gold', 'RPG', 'Game Boy')
-jogo3 = Jogo('CSGO', 'FPS', 'PC')
-lista = [jogo1,jogo2,jogo3]
+linkdeteste = 'https://www.google.com.br/'
 
 @app.route('/')
 def index():
+    lista = jogo_dao.listar()
     return render_template('lista.html', titulo= 'jogos', jogos= lista, link=linkdeteste)
 
 @app.route('/novo')
@@ -53,7 +61,8 @@ def criar():
     categoria = request.form['categoria']
     console = request.form['console']
     jogo = Jogo(nome, categoria, console)
-    lista.append(jogo)
+    # lista.append(jogo)
+    jogo_dao.salvar(jogo)
     return redirect(url_for('index'))
 
 @app.route('/login')
@@ -63,8 +72,8 @@ def login():
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form['usuario']]
+    usuario = usuario_dao.buscar_por_id(request.form['usuario'])
+    if usuario:
         if usuario.senha == request.form['senha']:
             session ['usuario_logado'] = usuario.id
             flash(usuario.nome + ' logou com sucesso!')
