@@ -1,22 +1,11 @@
 from flask import Flask, render_template, request , redirect, session, flash, url_for
-<<<<<<< Updated upstream
-# import pymysql
-
-# db = pymysql.connect(host='localhost',
-#                        user='igor',
-#                        password='123@123',
-#                        db='jogoteca')
-
-=======
 from dao import JogoDao,UsuarioDao
 from models import Jogo, Usuario
 import pymysql
->>>>>>> Stashed changes
 
 app = Flask(__name__)
 app.secret_key = 'alura'
 
-<<<<<<< Updated upstream
 linkdeteste = 'https://www.google.com.br/'
 
 class Jogo:
@@ -24,20 +13,13 @@ class Jogo:
         self.nome = nome
         self.categoria = categoria
         self.console = console
-=======
 MYSQL_HOST      = "localhost"
 MYSQL_USER      = "root"
 MYSQL_PASSWORD  = "todobancogosta@zika1391"
 MYSQL_DB        = "jogoteca"
 MYSQL_PORT      = "3306"
->>>>>>> Stashed changes
 
-db = pymysql.connect(host=MYSQL_HOST,
-                       user=MYSQL_USER,
-                       password=MYSQL_PASSWORD,
-                       db=MYSQL_DB)
-
-# db = pymysql.connect(app)
+db = pymysql.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD,db=MYSQL_DB)
 
 jogo_dao = JogoDao(db)
 usuario_dao = UsuarioDao(db)
@@ -98,4 +80,3 @@ app.run(debug=True)
                 # {% else %}
                 #     <p>Nenhum Jogo no Site</p>
                 # {% endif %}
-

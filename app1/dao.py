@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-from app_jogoteca import Jogo, Usuario
-=======
 from models import Jogo, Usuario
->>>>>>> Stashed changes
 
 SQL_DELETA_JOGO = 'delete from jogo where id = %s'
 SQL_JOGO_POR_ID = 'SELECT id, nome, categoria, console from jogo where id = %s'
