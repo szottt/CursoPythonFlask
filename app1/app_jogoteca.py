@@ -6,13 +6,6 @@ import pymysql
 app = Flask(__name__)
 app.secret_key = 'alura'
 
-linkdeteste = 'https://www.google.com.br/'
-
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome = nome
-        self.categoria = categoria
-        self.console = console
 MYSQL_HOST      = "localhost"
 MYSQL_USER      = "root"
 MYSQL_PASSWORD  = "todobancogosta@zika1391"
@@ -24,27 +17,48 @@ db = pymysql.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD,d
 jogo_dao = JogoDao(db)
 usuario_dao = UsuarioDao(db)
 
-linkdeteste = 'https://www.google.com.br/'
 
 @app.route('/')
 def index():
     lista = jogo_dao.listar()
-    return render_template('lista.html', titulo= 'jogos', jogos= lista, link=linkdeteste)
+    return render_template('lista.html', titulo='Jogos', jogos=lista)
+
 
 @app.route('/novo')
 def novo():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('novo')))
-    return render_template('novo.html', titulo= 'novo jogo')
+    return render_template('novo.html', titulo='Novo Jogo')
 
 @app.route('/criar', methods=['POST',])
 def criar():
-    nome = request.form['nome']
-    categoria = request.form['categoria']
-    console = request.form['console']
+    nome = request. form['nome']
+    categoria = request. form['categoria']
+    console = request. form['console']
     jogo = Jogo(nome, categoria, console)
-    # lista.append(jogo)
     jogo_dao.salvar(jogo)
+    return redirect(url_for('index'))
+
+@app.route('/editar/<int:id>')
+def editar(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login', proxima=url_for('editar')))
+    jogo = jogo_dao.busca_por_id(id)
+    return render_template('editar.html', titulo='Editando Jogo', jogo=jogo)
+
+@app.route('/atualizar', methods=['POST',])
+def atualizar():
+    nome = request. form['nome']
+    categoria = request. form['categoria']
+    console = request. form['console']
+    jogo = Jogo(nome, categoria, console, id=request.form['id'])
+    jogo_dao.salvar(jogo)
+    return redirect(url_for('index'))
+
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    jogo_dao.deletar(id)
+    flash('O Jogo foi excluido com sucesso')
     return redirect(url_for('index'))
 
 @app.route('/login')
@@ -52,31 +66,26 @@ def login():
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima)
 
-@app.route('/autenticar', methods=['POST',])
+
+@app.route('/autenticar', methods=['POST', ])
 def autenticar():
     usuario = usuario_dao.buscar_por_id(request.form['usuario'])
     if usuario:
         if usuario.senha == request.form['senha']:
-            session ['usuario_logado'] = usuario.id
+            session['usuario_logado'] = usuario.id
             flash(usuario.nome + ' logou com sucesso!')
-            proxima_pagina =  request.form['proxima']
+            proxima_pagina = request.form['proxima']
             return redirect(proxima_pagina)
-    else :
-        flash('Não logado, tente de novo!')
-        return redirect (url_for('login'))
+    else:
+        flash('Não logado, tente denovo!')
+        return redirect(url_for('login'))
+
 
 @app.route('/logout')
 def logout():
     session['usuario_logado'] = None
-    flash('Nenhum Usuario Logado')
+    flash('Nenhum usuário logado!')
     return redirect(url_for('index'))
 
+
 app.run(debug=True)
-
-
-                #Ajustar depois com calma
-                # {% if jogos %}
-                #     <p>Temos {{ len(jogos) }} jogos no site</p>
-                # {% else %}
-                #     <p>Nenhum Jogo no Site</p>
-                # {% endif %}
