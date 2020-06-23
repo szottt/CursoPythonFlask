@@ -13,7 +13,8 @@ MYSQL_USER      = "root"
 MYSQL_PASSWORD  = "todobancogosta@zika1391"
 MYSQL_DB        = "jogoteca"
 MYSQL_PORT      = "3306"
-UPLOAD_PATH     = os.path.dirname(os.path.abspath(__file__)) + "\\upload"
+#UPLOAD_PATH     = os.path.dirname(os.path.abspath(__file__)) + "\\upload"
+UPLOAD_PATH     = r'C:\Users\Igor Szot\Documents\Cursos2020\CursoPythonFlask\app1\upload'
 
 db = pymysql.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD,db=MYSQL_DB)
 
