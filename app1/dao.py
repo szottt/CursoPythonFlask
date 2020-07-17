@@ -8,6 +8,7 @@ SQL_BUSCA_JOGOS = 'SELECT id, nome, categoria, console from jogo'
 SQL_CRIA_JOGO = 'INSERT into jogo (nome, categoria, console) values (%s, %s, %s)'
 
 
+
 class JogoDao:
     def __init__(self, db):
         self.__db = db

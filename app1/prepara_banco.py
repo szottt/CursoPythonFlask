@@ -4,6 +4,7 @@ conn = pymysql.connect(host='localhost',
                        user='root',
                        password='todobancogosta@zika1391')
 
+
 # Descomente se quiser desfazer o banco...
 # conn.cursor().execute("DROP DATABASE `jogoteca`;")
 # conn.commit()

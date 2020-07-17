@@ -5,6 +5,7 @@ class Jogo:
         self.categoria = categoria
         self.console = console
 
+
 class Usuario:
     def __init__(self, id, nome, senha):
         self.id = id

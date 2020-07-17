@@ -116,4 +116,5 @@ def deleta_arquivo(id):
     os.remove(os.path.join(UPLOAD_PATH,arquivo))
 
 
+
 app.run(debug=True)
